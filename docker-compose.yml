@@ -1,0 +1,103 @@
+version: '3.7'
+
+services:
+  # frontend:
+  #   container_name: frontend
+  #   build:
+  #     context: ./nistagram-frontend
+  #   volumes:
+  #     - ./nistagram-frontend/src:/app/src
+
+  #   environment: 
+  #     - CHOKIDAR_USEPOLLING=true
+  #   ports:
+  #     - 3000:3000
+  #   expose:
+  #     - 3000
+  #   stdin_open: true
+
+  
+  saga:
+    container_name: saga
+    build:
+      context: ./saga
+      target: development
+    volumes:
+      - ./saga:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 3001:3000
+    command: /bin/bash -l -c "npm run start:dev"
+    env_file:
+      - ./saga/.env
+
+  # auth:
+  #   container_name: auth
+  #   build:
+  #     context: ./nistagram-auth
+  #     target: development
+  #   volumes:
+  #     - ./nistagram-auth:/usr/src/app
+  #     - /usr/src/app/node_modules
+  #   ports:
+  #     - 3002:3000
+  #   command: /bin/bash -l -c "npm run start:dev"
+  #   env_file:
+  #     - ./nistagram-auth/.env
+
+  # publications:
+  #   container_name: publications
+  #   build:
+  #     context: ./nistagram-publications
+  #     target: development
+  #   volumes:
+  #     - ./nistagram-publications:/usr/src/app
+  #     - /usr/src/app/node_modules
+  #   ports:
+  #     - 3003:3000
+  #   command: /bin/bash -l -c "npm run start:dev"
+  #   env_file:
+  #     - ./nistagram-publications/.env
+
+  # activities:
+  #   container_name: activities
+  #   build:
+  #     context: ./nistagram-activities
+  #     target: development
+  #   volumes:
+  #     - ./nistagram-activities:/usr/src/app
+  #     - /usr/src/app/node_modules
+  #   ports:
+  #     - 3004:3000
+  #   command: /bin/bash -l -c "npm run start:dev"
+  #   env_file:
+  #     - ./nistagram-activities/.env
+
+  # users:
+  #   container_name: users
+  #   build:
+  #     context: ./nistagram-users
+  #     target: development
+  #   volumes:
+  #     - ./nistagram-users:/usr/src/app
+  #     - /usr/src/app/node_modules
+  #   ports:
+  #     - 3005:3000
+  #   command: /bin/bash -l -c "npm run start:dev"
+  #   env_file:
+  #     - ./nistagram-users/.env
+
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - ./default.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - frontend
+      - saga
+      - auth
+      - publications
+      - activities
+      - users
