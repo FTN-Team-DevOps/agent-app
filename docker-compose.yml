@@ -1,24 +1,24 @@
 version: '3.7'
 
 services:
-  # frontend:
-  #   container_name: frontend
-  #   build:
-  #     context: ./nistagram-frontend
-  #   volumes:
-  #     - ./nistagram-frontend/src:/app/src
+  frontend:
+    container_name: agent-app-frontend
+    build:
+      context: ./frontend
+    volumes:
+      - ./frontend/src:/app/src
 
-  #   environment: 
-  #     - CHOKIDAR_USEPOLLING=true
-  #   ports:
-  #     - 3000:3000
-  #   expose:
-  #     - 3000
-  #   stdin_open: true
+    environment: 
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - 3000:3000
+    expose:
+      - 3000
+    stdin_open: true
 
   
   saga:
-    container_name: saga
+    container_name: agent-app-saga
     build:
       context: ./saga
       target: development
@@ -88,16 +88,16 @@ services:
   #     - ./nistagram-users/.env
 
   nginx:
-    container_name: nginx
+    container_name: agent-app-nginx
     image: nginx:latest
     ports:
       - 80:80
     volumes:
       - ./default.conf:/etc/nginx/nginx.conf
-    depends_on:
-      - frontend
-      - saga
-      - auth
-      - publications
-      - activities
-      - users
+    # depends_on:
+    #   - frontend
+    #   - saga
+      # - auth
+      # - publications
+      # - activities
+      # - users
