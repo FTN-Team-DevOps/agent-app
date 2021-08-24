@@ -94,9 +94,9 @@ services:
       - 80:80
     volumes:
       - ./default.conf:/etc/nginx/nginx.conf
-    # depends_on:
-    #   - frontend
-    #   - saga
+    depends_on:
+      - frontend
+      - saga
       # - auth
       # - publications
       # - activities

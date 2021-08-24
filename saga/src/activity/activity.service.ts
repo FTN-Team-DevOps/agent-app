@@ -10,6 +10,7 @@ export class ActivityService {
 
   async test() {
     const ok = await this.activityClient.send('activities-get', {}).toPromise();
+    console.log({ ok });
     return ok;
   }
 }
