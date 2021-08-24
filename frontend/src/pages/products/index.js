@@ -1,7 +1,7 @@
 import Header from "../../components/header"
-import "./style.css";
+import "../../theme/global-styles.css";
 
-const BooksPage = () => (
+const ProductsPage = () => (
   <div>
     <Header />
     <div>
@@ -30,41 +30,8 @@ const BooksPage = () => (
         </div>
       </div>
     </div>
-
-    {/* <div>
-      <div>
-        <div className="main-container">
-          <div className="books-section-heading">your purchases</div>
-          <div className="books-devider"></div>
-
-          <div className="books-container">
-            <div className="book-container">
-              <img src="../../assets/book.svg" width="160" height="220" />
-              <div className="book-info-wrapper">
-                <div className="book-heading">Book name</div>
-                <div className="book-author">Book author</div>
-                <div className="description-wrapper">
-                  <p>Some description</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div className="main-container">
-          <div className="message-wrapper">
-            <div className="message-heading">No Purchases</div>
-            <div className="message-content">
-              When you buy a book, it will appear here.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> */}
     <div style={{ marginBottom: 50 }} />
   </div>
 );
 
-export default BooksPage;
+export default ProductsPage;

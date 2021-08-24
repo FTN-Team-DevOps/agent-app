@@ -1,9 +1,10 @@
 const routes = {
   login: '/',
   register: '/register',
-  books: '/books',
-  purchasedBooks: '/purchased-books',
-  booksEdit: '/books-edit',
+  products: '/products',
+  purchases: '/purchases',
+  productsEdit: '/products-edit',
+  productEdit: '/product-edit',
   reports: '/reports',
 }
 

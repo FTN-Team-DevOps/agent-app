@@ -1,9 +1,6 @@
-import { useHistory } from "react-router-dom";
-import routes from "../../utils/routes";
 import "../../theme/global-styles.css";
 
-const RegisterPage = () => {
-  const history = useHistory();
+const ProductEditPage = () => {
   return (
     <div class="auth-container">
       <div class="main-container background">
@@ -17,37 +14,39 @@ const RegisterPage = () => {
               <input
                 type="text"
                 class="form-control"
-                placeholder="Name"
+                placeholder="Product Name"
+                required
+              />
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Price"
                 required
               />
               <input
                 type="text"
                 class="form-control"
-                placeholder="Email"
+                placeholder="Image URL"
+                required
+              />
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Number of products in stock"
                 required
               />
               <input
                 type="text"
                 class="form-control"
-                placeholder="Username"
-                required
-                autofocus
-              />
-              <input
-                type="password"
-                class="form-control"
-                placeholder="Password"
+                placeholder="Description"
                 required
               />
-              <input
-                type="password"
-                class="form-control"
-                placeholder="Confirm password"
-                required
-              />
-              <div class="button-wrapper">
-                <button class="btn btn-primary btn-block" type="submit">
-                  Register
+              <div class="button-wrapper" style={{ flexDirection: 'row' }}>
+                <button class="btn btn-primary btn-block" type="submit" style={{ margin: 5 }}>
+                  Save
+                </button>
+                <button class="btn btn-primary btn-block" type="button" style={{ margin: 5 }}>
+                  Remove
                 </button>
               </div>
             </form>
@@ -58,4 +57,4 @@ const RegisterPage = () => {
   )
 };
 
-export default RegisterPage;
+export default ProductEditPage;
