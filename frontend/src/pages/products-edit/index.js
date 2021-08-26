@@ -1,10 +1,27 @@
-import Header from "../../components/header"
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import Header from "../../components/header"
 import routes from "../../utils/routes";
+import { getMyProducts } from "../../api/product";
 import "../../theme/global-styles.css";
 
 const ProductsEditPage = () => {
   const history = useHistory();
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    loadProducts()
+  }, [])
+
+  const loadProducts = async () => {
+    const _products = await getMyProducts();
+    setProducts(_products);
+  }
+
+  const deleteCallback = (id) => {
+    setProducts(products.filter((p) => p._id !== id));
+  }
+
   return (
     <div>
       <Header />
@@ -16,21 +33,27 @@ const ProductsEditPage = () => {
           </div>
           <div className="books-devider"></div>
 
+          <button className="button purple" onClick={() => history.push(routes.productAdd)}>Add New</button>
           <div className="books-container">
-            <div className="book-container">
-              <img src="https://images-na.ssl-images-amazon.com/images/I/91gZX7sjnpL.jpg" width="160" height="220" />
+          {products && products.map((p) => (
+            <div className="book-container" key={`my-product ${p._id}`}>
+              <img src={p.image} height="220" alt="" />
               <div className="book-info-wrapper">
-                <div className="book-heading">Book name</div>
-                <div className="book-author">Book author</div>
+                <div className="book-heading">{p.name}</div>
+                <div className="book-author">{p.description ?? 'No description'}</div>
                 <div className="description-wrapper">
-                  <p>12 in stock</p>
+                  <p>{p.count} in stock</p>
                 </div>
               </div>
               <div className="button-wrapper">
-                <div className="price">(25 $)</div>
-                <button className="button purple" onClick={() => history.push(routes.productEdit)}>Edit</button>
+                <div className="price">({p.price} $)</div>
+                <button className="button purple" onClick={() => history.push({
+                  pathname: routes.productEdit,
+                  state: { product: p },
+                })}>Edit</button>
               </div>
             </div>
+            ))}
           </div>
         </div>
       </div>

@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common';
-import { ActicityModule } from './activity/activity.module';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
-import { ConfigModule } from './config/config.module';
-import { PublicationModule } from './publication/publication.module';
+import { ProductModule } from './product/product.module';
+import { PurchaseModule } from './purchase/purchase.module';
 import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
-    ConfigModule,
-    PublicationModule,
+    MongooseModule.forRoot(process.env.MONGODB_URI),
     UserModule,
-    ActicityModule,
+    ProductModule,
+    PurchaseModule,
     AuthModule,
   ],
 })

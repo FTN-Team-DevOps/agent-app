@@ -1,44 +1,61 @@
 import { useHistory } from "react-router-dom";
+import { useState } from "react";
 import routes from "../../utils/routes";
 import "../../theme/global-styles.css";
+import { logIn } from "../../api/auth";
 
 const LoginPage = () => {
   const history = useHistory();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  
+  const onSubmit = (e) => {
+    const loginCallback = () => history.push(routes.products);
+
+    e.preventDefault();
+    const payload = {
+      email,
+      password,
+    };
+    logIn(payload, loginCallback);
+  }
+
   return (
-    <div class="auth-container">
-      <div class="main-container background">
-        <div class="form-wrapper">
-          <div class="logo-wrapper">
+    <div className="auth-container">
+      <div className="main-container background">
+        <div className="form-wrapper">
+          <div className="logo-wrapper">
             <br />
-            <div class="header-logo-text">Online Store</div>
+            <div className="header-logo-text">Online Store</div>
           </div>
-          <div class="form-container">
+          <div className="form-container">
             <form>
               <input
                 type="text"
-                id="username"
-                class="form-control"
-                name="username"
-                placeholder="Username"
+                className="form-control"
+                name="email"
+                placeholder="Email"
                 required
-                autofocus
+                value={email}
+                onChange={(val) => setEmail(val.target.value)}
               />
               <input
                 type="password"
-                id="password"
-                class="form-control"
+                className="form-control"
                 name="password"
                 placeholder="Password"
+                value={password}
+                onChange={(val) => setPassword(val.target.value)}
                 required
               />
-              <div class="button-wrapper">
-                <button class="btn btn-primary btn-block" type="submit">
+              <div className="button-wrapper">
+                <button className="btn btn-primary btn-block" type="submit" onClick={onSubmit}>
                   Sign in
                 </button>
               </div>
-              <div class="register-link-wrapper">
+              <div className="register-link-wrapper">
                 Don't have an account?
-                <span class="register-link" onClick={() => history.push(routes.register)}>Regiser</span>
+                <span className="register-link" onClick={() => history.push(routes.register)}>Regiser</span>
               </div>
             </form>
           </div>

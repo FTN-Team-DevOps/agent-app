@@ -1,27 +1,30 @@
 import { useHistory } from "react-router-dom";
-import routes from "../../utils/routes";
-import { register } from "../../api/auth";
-import "../../theme/global-styles.css";
 import { useState } from "react";
+import routes from "../../utils/routes";
+import { createProduct } from "../../api/product";
+import "../../theme/global-styles.css";
 
-const RegisterPage = () => {
+const ProductAddPage = () => {
   const history = useHistory();
+
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
+  const [description, setDescription] = useState('');
+  const [count, setCount] = useState(0);
+  const [price, setPrice] = useState(0);
+  const [image, setImage] = useState('');
 
   const onSubmit = (e) => {
-    const registrationCallback = () => history.push(routes.products);
-
     e.preventDefault();
-    const payload = {
+    const createProductCallback = () => history.push(routes.productsEdit);
+
+    createProduct({
       name,
-      email,
-      password,
-      username,
-    };
-    register(payload, registrationCallback);
+      description,
+      count,
+      price,
+      image,
+    },
+    createProductCallback);
   }
 
   return (
@@ -37,38 +40,45 @@ const RegisterPage = () => {
               <input
                 type="text"
                 className="form-control"
-                placeholder="Name"
+                placeholder="Product Name"
                 value={name}
                 onChange={(val) => setName(val.target.value)}
                 required
               />
               <input
-                type="text"
+                type="number"
                 className="form-control"
-                placeholder="Email"
-                value={email}
-                onChange={(val) => setEmail(val.target.value)}
+                placeholder="Price"
+                value={price}
+                onChange={(val) => setPrice(val.target.value)}
                 required
               />
               <input
                 type="text"
                 className="form-control"
-                placeholder="Username"
-                value={username}
-                onChange={(val) => setUsername(val.target.value)}
+                placeholder="Image URL"
+                value={image}
+                onChange={(val) => setImage(val.target.value)}
                 required
               />
               <input
-                type="password"
+                type="number"
                 className="form-control"
-                placeholder="Password"
-                value={password}
-                onChange={(val) => setPassword(val.target.value)}
+                placeholder="Number of products in stock"
+                value={count}
+                onChange={(val) => setCount(val.target.value)}
                 required
               />
-              <div className="button-wrapper">
+              <input
+                type="text"
+                className="form-control"
+                value={description}
+                onChange={(val) => setDescription(val.target.value)}
+                placeholder="Description"
+              />
+              <div className="button-wrapper" style={{ flexDirection: 'row' }}>
                 <button className="btn btn-primary btn-block" type="submit" onClick={onSubmit}>
-                  Register
+                  Save
                 </button>
               </div>
             </form>
@@ -79,4 +89,4 @@ const RegisterPage = () => {
   )
 };
 
-export default RegisterPage;
+export default ProductAddPage;

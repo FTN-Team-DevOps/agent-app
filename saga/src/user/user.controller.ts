@@ -1,12 +1,13 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Headers } from '@nestjs/common';
+import { User } from './user.model';
 import { UserService } from './user.service';
 
-@Controller('/users')
+@Controller('/user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
-  public search(): Promise<string> {
-    return this.userService.test();
+  async getOne(@Headers() headers: any): Promise<User> {
+    return await this.userService.find(headers.authorization);
   }
 }

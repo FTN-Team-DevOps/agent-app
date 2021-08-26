@@ -5,6 +5,7 @@ import RegisterPage from '../pages/register';
 import ProductPage from '../pages/products';
 import ProductsEditPage from '../pages/products-edit';
 import ProductEditPage from '../pages/product-edit';
+import ProductAddPage from '../pages/product-add';
 import PurchasesPage from '../pages/purchases';
 import ReportsPage from '../pages/reports';
 import LoginPage from '../pages/login';
@@ -16,6 +17,7 @@ const CustomRouter = () => (
       <Route path={routes.register} component={RegisterPage} />
       <Route path={routes.productsEdit} component={ProductsEditPage} />
       <Route path={routes.productEdit} component={ProductEditPage} />
+      <Route path={routes.productAdd} component={ProductAddPage} />
       <Route path={routes.purchases} component={PurchasesPage} />
       <Route path={routes.reports} component={ReportsPage} />
       <Route path={routes.login} component={LoginPage} />
