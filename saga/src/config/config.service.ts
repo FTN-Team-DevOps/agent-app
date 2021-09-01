@@ -26,4 +26,12 @@ export class ConfigService {
   getPublicatonsRoute(): string {
     return process.env.PUBLICATION_ROUTE || '';
   }
+
+  getJWTSecret(): string {
+    return process.env.JWT_SECRET;
+  }
+
+  getSaltRounds(): number {
+    return +process.env.SALT_ROUNDS || 10;
+  }
 }

@@ -1,19 +1,33 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
+import {
+  forwardRef,
+  Inject,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { AuthService } from 'src/auth/auth.service';
+import { User, UserDocument } from './user.model';
 
 @Injectable()
 export class UserService {
   constructor(
-    @Inject('User')
-    private readonly userClient: ClientProxy,
+    @InjectModel(User.name)
+    private readonly userModel: Model<UserDocument>,
+    @Inject(forwardRef(() => AuthService))
+    private readonly authService: AuthService,
   ) {}
 
-  async test() {
-    // const { data } = await this.httpService
-    //   .get(this.configService.getPublicatonsRoute())
-    //   .toPromise();
+  async find(token: string): Promise<User> {
+    const auth = await this.authService.getByToken(token);
+    if (auth) {
+      return await this.userModel.findOne({ _id: auth.user });
+    } else {
+      throw new UnauthorizedException();
+    }
+  }
 
-    const ok = await this.userClient.send('users-get', {}).toPromise();
-    return ok;
+  async create(user: User): Promise<User> {
+    return this.userModel.create(user);
   }
 }

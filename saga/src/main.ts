@@ -18,7 +18,7 @@ async function bootstrap() {
       },
     },
   });
-  await app
+  app
     .startAllMicroservices(() => {
       Logger.log('Microservice is listening!');
     })
@@ -26,4 +26,5 @@ async function bootstrap() {
       Logger.log('Api Server is listening on 3000');
     });
 }
+
 bootstrap();
