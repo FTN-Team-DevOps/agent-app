@@ -11,6 +11,8 @@ export class Purchase {
   @Prop()
   customer: string;
   @Prop()
+  seller?: string;
+  @Prop()
   product: string;
   @Prop()
   name: string;

@@ -23,6 +23,15 @@ export class PurchaseService {
     }
   }
 
+  async findBySeller(token: string): Promise<Purchase[]> {
+    const auth = await this.authService.getByToken(token);
+    if (auth) {
+      return await this.purchaseModel.find({ seller: auth.user }).exec();
+    } else {
+      throw new UnauthorizedException();
+    }
+  }
+
   async create(purchase: Purchase, token: string): Promise<Purchase> {
     const auth = await this.authService.getByToken(token);
     if (auth) {
@@ -34,7 +43,7 @@ export class PurchaseService {
         purchase.product,
         product.count - 1,
       );
-      return this.purchaseModel.create(purchase);
+      return this.purchaseModel.create({ ...purchase, seller: product.seller });
     } else {
       throw new UnauthorizedException();
     }

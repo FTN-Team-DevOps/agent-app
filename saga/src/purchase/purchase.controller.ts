@@ -18,6 +18,11 @@ export class PurchaseController {
     return await this.userService.findAll(headers.authorization);
   }
 
+  @Get('/sold')
+  async getSold(@Headers() headers: any): Promise<Purchase[]> {
+    return await this.userService.findBySeller(headers.authorization);
+  }
+
   @Post()
   async create(
     @Headers() headers: any,
